@@ -1,10 +1,9 @@
 package com.vishva.Payapp.repositoryservice;
 
-import com.vishva.Payapp.model.AccountEntity;
-
+import com.vishva.Payapp.dto.Credit;
 import java.util.List;
 
 public interface CreditRepositoryService {
 
-    List<AccountEntity> getAccountList(String accId);
+    List<Credit> getAccountList(String accId);
 }

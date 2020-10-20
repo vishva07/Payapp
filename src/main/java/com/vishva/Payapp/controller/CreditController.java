@@ -5,13 +5,9 @@ import com.vishva.Payapp.exchange.CreditResponse;
 import com.vishva.Payapp.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(CreditController.CREDIT_API_ENDPOINT)
 public class CreditController {
 
@@ -21,14 +17,17 @@ public class CreditController {
     private CreditService creditService;
 
     @PostMapping("/{accId}")
-    /*public ResponseEntity<CreditResponse> getResponse(@RequestBody CreditRequest getCreditRequest, @PathVariable String accId) {
+    public ResponseEntity<CreditResponse> getResponse(@RequestBody CreditRequest creditRequest) {
 
-        CreditResponse creditResponse = creditService.amountCredited(getCreditRequest, accId);
-        return ResponseEntity.ok().body(creditResponse);
-    }*/
-    public ResponseEntity<CreditResponse> getResponse(@PathVariable String accId, @RequestBody Double amt) {
+        CreditResponse creditResponse;
 
-        CreditResponse creditResponse = creditService.amountCredited(accId, amt);
-        return ResponseEntity.ok().body(creditResponse);
+        if(creditRequest.getAccId() != null && creditRequest.getAmount() != null) {
+            creditResponse = creditService.amountCredited(creditRequest);
+            return ResponseEntity.ok().body(creditResponse);
+        }
+        else {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
+
 }

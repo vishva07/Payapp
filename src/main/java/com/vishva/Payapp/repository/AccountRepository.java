@@ -2,7 +2,9 @@ package com.vishva.Payapp.repository;
 
 import com.vishva.Payapp.model.AccountEntity;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface AccountRepository extends CrudRepository<AccountEntity, String> {
+@Repository
+public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {
 
 }

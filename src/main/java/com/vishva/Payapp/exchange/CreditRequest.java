@@ -1,15 +1,20 @@
 package com.vishva.Payapp.exchange;
 
-import com.vishva.Payapp.dto.Response;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreditRequest {
-    //private List<Response> response;
+
+    @NotNull
+    private String accId;
+    @NotNull
+    private BigDecimal amount;
 }
