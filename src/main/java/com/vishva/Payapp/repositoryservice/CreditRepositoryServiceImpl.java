@@ -22,7 +22,7 @@ public class CreditRepositoryServiceImpl implements CreditRepositoryService {
     public List<Credit> getAccountList(String accId) {
 
         List<Credit> creditList = new ArrayList<>();
-        List<AccountEntity> accountEntity = accountRepository.findAll();
+        List<AccountEntity> accountEntity = (List<AccountEntity>) accountRepository.findAll();
 
         for(AccountEntity acc : accountEntity) {
             creditList.add(modelMapper.map(acc, Credit.class));

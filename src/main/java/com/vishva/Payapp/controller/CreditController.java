@@ -16,7 +16,12 @@ public class CreditController {
     @Autowired
     private CreditService creditService;
 
-    @PostMapping("/{accId}")
+    @GetMapping("/")
+    public String index() {
+        return "Welcome to Payapp!";
+    }
+
+    @PostMapping("/{id}")
     public ResponseEntity<CreditResponse> getResponse(@RequestBody CreditRequest creditRequest) {
 
         CreditResponse creditResponse;

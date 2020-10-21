@@ -27,6 +27,7 @@ public class CreditServiceImpl implements CreditService {
                 BigDecimal a = acc.getBalance();
                 BigDecimal b = creditRequest.getAmount();
                 newBal = a.add(b);
+                acc.setBalance(newBal);
             }
         }
         CreditResponse creditResponse = new CreditResponse(creditList);
