@@ -1,6 +1,5 @@
 package com.vishva.Payapp.repositoryservice;
 
-import com.vishva.Payapp.dto.Credit;
 import com.vishva.Payapp.model.AccountEntity;
 import com.vishva.Payapp.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
@@ -19,14 +18,15 @@ public class CreditRepositoryServiceImpl implements CreditRepositoryService {
     private AccountRepository accountRepository;
 
     @Override
-    public List<Credit> getAccountList(String accId) {
+    public List<AccountEntity> getAccountList(String accId) {
 
-        List<Credit> creditList = new ArrayList<>();
+        List<AccountEntity> creditList = new ArrayList<>();
         List<AccountEntity> accountEntity = (List<AccountEntity>) accountRepository.findAll();
 
         for(AccountEntity acc : accountEntity) {
-            creditList.add(modelMapper.map(acc, Credit.class));
+            creditList.add(modelMapper.map(acc, AccountEntity.class));
         }
         return creditList;
     }
+
 }

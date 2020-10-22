@@ -8,31 +8,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(CreditController.CREDIT_API_ENDPOINT)
+@RequestMapping("/")
 public class CreditController {
-
-    public final static String CREDIT_API_ENDPOINT = "/credit";
 
     @Autowired
     private CreditService creditService;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String index() {
         return "Welcome to Payapp!";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/home/credit")
     public ResponseEntity<CreditResponse> getResponse(@RequestBody CreditRequest creditRequest) {
 
         CreditResponse creditResponse;
 
         if(creditRequest.getAccId() != null && creditRequest.getAmount() != null) {
             creditResponse = creditService.amountCredited(creditRequest);
-            return ResponseEntity.ok().body(creditResponse);
+            return ResponseEntity.ok().build();
         }
         else {
             return ResponseEntity.badRequest().body(null);
         }
     }
-
 }
