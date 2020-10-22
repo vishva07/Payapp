@@ -4,7 +4,6 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -15,12 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class AccountEntity {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @NotNull
     public String accId;
 
     @NotNull

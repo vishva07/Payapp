@@ -22,10 +22,8 @@ public class CreditController {
     @PostMapping("/home/credit")
     public ResponseEntity<CreditResponse> getResponse(@RequestBody CreditRequest creditRequest) {
 
-        CreditResponse creditResponse;
-
         if(creditRequest.getAccId() != null && creditRequest.getAmount() != null) {
-            creditResponse = creditService.amountCredited(creditRequest);
+            creditService.amountCredited(creditRequest);
             return ResponseEntity.ok().build();
         }
         else {

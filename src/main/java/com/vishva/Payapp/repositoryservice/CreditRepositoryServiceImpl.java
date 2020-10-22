@@ -12,7 +12,7 @@ import java.util.List;
 public class CreditRepositoryServiceImpl implements CreditRepositoryService {
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -28,5 +28,4 @@ public class CreditRepositoryServiceImpl implements CreditRepositoryService {
         }
         return creditList;
     }
-
 }
