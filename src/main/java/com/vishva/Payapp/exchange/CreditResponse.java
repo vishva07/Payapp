@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreditResponse {
 
-    String creditStatus;
+    private String creditStatus;
 }

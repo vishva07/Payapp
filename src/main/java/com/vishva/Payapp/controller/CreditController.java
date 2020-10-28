@@ -23,13 +23,11 @@ public class CreditController {
     @PostMapping("/credit")
     public ResponseEntity<CreditResponse> creditAmount(@Valid @RequestBody CreditRequest creditRequest) {
 
-        if(creditRequest.getAccId() == null || creditRequest.getAmount() == null) {
-            CreditResponse creditResponse = new CreditResponse();
-            creditResponse.setCreditStatus("Please enter the account ID and the amount to be credited");
-            return ResponseEntity.badRequest().body(creditResponse);
-        }
+        CreditResponse creditResponse = new CreditResponse();
 
-        CreditResponse creditResponse = creditService.amountCredited(creditRequest);
+        creditService.amountCredited(creditRequest);
+        creditResponse.setCreditStatus("Success: Thank you for using Payapp, your account is credited successfully!");
         return ResponseEntity.ok().body(creditResponse);
     }
+
 }
