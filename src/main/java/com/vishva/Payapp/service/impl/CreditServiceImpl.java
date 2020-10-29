@@ -22,10 +22,14 @@ public class CreditServiceImpl implements CreditService {
     @Override
     public void amountCredited(CreditRequest creditRequest) {
 
+         if(creditRequest == null) {
+            throw new IllegalArgumentException("Failure: Please enter the required values");
+         }
+
          Optional<AccountEntity> optionalAccountEntity = creditRepositoryService.getAccountEntities(creditRequest.getAccId());
 
          if(optionalAccountEntity.isEmpty()) {
-             throw new IllegalArgumentException("Failure: Please enter the correct account number");
+             throw new IllegalArgumentException("Failure: AccId does not exist");
          }
 
          else {

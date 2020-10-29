@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CreditRequest {
 
-    @NotNull(message = "Account number should not be null")
+    @NotNull(message = "AccId should not be null")
     @Pattern(regexp = "[0-9]+", message = "AccId should contains only digits")
     private String accId;
 
