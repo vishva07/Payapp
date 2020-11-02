@@ -6,28 +6,28 @@ import com.vishva.Payapp.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/home")
 public class CreditController {
 
     @Autowired
     private CreditService creditService;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String index() {
         return "Welcome to Payapp!";
     }
 
-    @PostMapping("/home/credit")
-    public ResponseEntity<CreditResponse> getResponse(@RequestBody CreditRequest creditRequest) {
+    @PostMapping("/credit")
+    public ResponseEntity<CreditResponse> creditAmount(@Valid @RequestBody CreditRequest creditRequest) {
 
-        if(creditRequest.getAccId() != null && creditRequest.getAmount() != null) {
-            creditService.amountCredited(creditRequest);
-            return ResponseEntity.ok().build();
-        }
-        else {
-            return ResponseEntity.badRequest().body(null);
-        }
+        CreditResponse creditResponse = new CreditResponse();
+
+        creditService.amountCredited(creditRequest);
+        creditResponse.setCreditStatus("Success: Thank you for using Payapp, your account is credited successfully!");
+        return ResponseEntity.ok().body(creditResponse);
     }
+
 }
