@@ -6,7 +6,7 @@ import com.vishva.Payapp.controller.CreditController;
 import com.vishva.Payapp.exchange.CreditRequest;
 import com.vishva.Payapp.repository.AccountRepository;
 import com.vishva.Payapp.repositoryservice.impl.CreditRepositoryServiceImpl;
-import com.vishva.Payapp.service.CreditService;
+import com.vishva.Payapp.service.impl.CreditServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +28,10 @@ public class CreditControllerTest {
     private MockMvc mvc;
 
     @Mock
-    private CreditService creditService;
+    private CreditServiceImpl creditService;
+
+    @Mock
+    private CreditRepositoryServiceImpl creditRepositoryService;
 
     @Mock
     private AccountRepository accountRepository;
@@ -36,8 +39,6 @@ public class CreditControllerTest {
     @InjectMocks
     private CreditController creditController;
 
-    @InjectMocks
-    private CreditRepositoryServiceImpl creditRepositoryService;
 
     @BeforeEach
     public void setup() {
@@ -50,7 +51,8 @@ public class CreditControllerTest {
     public void negativeAmountBadRequest() throws Exception {
         CreditRequest creditRequest = new CreditRequest("101", new BigDecimal("-99"));
         String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/home/credit").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -58,7 +60,8 @@ public class CreditControllerTest {
     public void maxAmountBadRequest() throws Exception {
         CreditRequest creditRequest = new CreditRequest("102", new BigDecimal("10012"));
         String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/home/credit").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -66,7 +69,8 @@ public class CreditControllerTest {
     public void nullAmountBadRequest() throws Exception {
         CreditRequest creditRequest = new CreditRequest("101", null);
         String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/home/credit").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -74,7 +78,8 @@ public class CreditControllerTest {
     public void nullAccIdBadRequest() throws Exception {
         CreditRequest creditRequest = new CreditRequest(null, new BigDecimal("118"));
         String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/home/credit").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -82,15 +87,8 @@ public class CreditControllerTest {
     public void invalidAccIdBadRequest() throws Exception {
         CreditRequest creditRequest = new CreditRequest("10v", new BigDecimal("4567"));
         String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void accIdNotPresentBadRequest() throws Exception {
-        CreditRequest creditRequest = new CreditRequest("112", new BigDecimal("457"));
-        String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/home/credit").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -98,7 +96,8 @@ public class CreditControllerTest {
     public void validArgumentOkRequest() throws Exception {
         CreditRequest creditRequest = new CreditRequest("101", new BigDecimal("1064"));
         String jsonRequest = objectMapper.writeValueAsString(creditRequest);
-        mvc.perform(post("/home/credit").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/home/credit").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }
